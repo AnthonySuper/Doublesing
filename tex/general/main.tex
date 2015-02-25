@@ -1,0 +1,38 @@
+\subsection{Whitespace}
+Whitespace is ignored in Doublesing, expect for one character: the blank newline.
+A blank newline is a single line, by itself. As C printf escape sequences, it is:
+\begin{verbatim}
+\n\r\n\r
+\end{verbatim}
+
+This will cause a new \begin{verbatim}<p>\end{verbatim} tag to be inserted inside of direct-display blocks.
+
+\subsection{Blocks}
+A block is defined by an identifier and one or more arguments, which should be text surrounded by the characters "\{" and "\}".
+A valid block identifier can be matched by the regex:
+\begin{verbatim}
+/[a-zA-Z0-9_].+/
+\end{verbatim}
+
+By convention, all the built-in block types use lowercase names, with words separated by underscores.
+Vendors are encouraged (but not required) to use the same convention.
+
+\subsection{Arguments}
+Arguments to blocks are evaluated at the deepest level first, then expand outwards through the tree.
+
+As an example:
+
+\begin{verbatim}
+\link{www.imagehex.com}{\bold{Free} advertising for the author!}
+\end{verbatim}
+
+Becomes:
+\begin{verbatim}
+\link{www.imagehex.com}{<b>free</b> advertising for the author!}
+\end{verbatim}
+Which then becomes:
+\begin{verbatim}
+<a href="wwww.imagehex.com"><b>free</b> advertising for the author!</a>
+\end{verbatim}
+
+

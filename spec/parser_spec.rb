@@ -1,49 +1,61 @@
 require 'parslet/rig/rspec'
 RSpec.describe Doublesing::Parser do
-  let(:parser){Doublesing::Parser.new}
-  context "block_start" do
-    it "should consume properly" do
-      expect(parser.block_start).to parse("\\")
-
+  let(:p){Doublesing::Parser.new}
+  context "argument_begin" do
+    it "matches {" do
+      expect(p.argument_begin).to parse("{")
     end
-    it "should not consume escaped input" do
-      expect(parser.block_start).to_not parse("\\\\")
+  end
+  context "argument_end" do
+    it "matches }" do
+      expect(p.argument_end).to parse("}")
+    end
+    it "doesn't match \\}" do
+      expect(p.argument_end).to_not parse("\\}")
+    end
+  end
+  context "block_begin" do
+    it "makes \\" do
+      expect(p.block_begin).to parse("\\")
+    end
+    it "ignores \\\\" do
+      expect(p.block_begin).to_not parse("\\\\")
     end
   end
   context "block_id" do
-    it "parses letter names" do
-      expect(parser.block_id).to parse("bold")
+    it "matches underscore_names" do
+      expect(p.block_id).to parse("underscore_names")
     end
-    it "parses letter names with underscores" do
-      expect(parser.block_id).to parse("link_to")
+    it "matches CapitalNames" do
+      expect(p.block_id).to parse("CapitalNames")
     end
-    it "doesn't parse things with spaces" do
-      expect(parser.block_id).to_not parse("this thing")
+    it "doesn't match an empty string" do
+      expect(p.block_id).to_not parse("")
     end
-    it "doesn't parse blank things" do
-      expect(parser.block_id).to_not parse("")
-    end
-    it "parses single letters" do
-      expect(parser.block_id).to parse("a")
+  end
+  context "block_header" do
+    it "matches a valid header" do
+      expect(p.block_header).to parse("\\begin")
     end
   end
   context "text" do
-    it "parses plaintext" do
-      expect(parser.text).to parse("can you go man?")
+    it "doesn't match a block_header" do
+      expect(p.text).to_not parse("\\begin")
     end
-    it "parses escaped backslashes" do
-      expect(parser.text).to parse("\\\\dude")
+    it "does match other text" do
+      expect(p.text).to parse("other text")
     end
-    it "doesn't parse block starts" do
-      expect(parser.text).to_not parse("\\block{this}")
+    it "doesn't match an argument_end" do
+      expect(p.text).to_not parse("end}")
     end
   end
   context "block" do
-    it "parses blocks with arity of 1" do
-      expect(parser.block).to parse("\\block{test}")
+    it "matches a properly formed block" do
+      expect(p.block).to parse("\\test{arg}")
     end
-    it "parses block with arity of 2" do
-      expect(parser.block).to parse("\\block{test}{other}")
+    it "matches blocks of any arity" do
+      expect(p.block).to parse("\\test{arg1}{arg2}")
     end
   end
 end
+

@@ -4,7 +4,8 @@ module Doublesing
     def self.handlers
       {"bold" => Bold,
        "italic" => Italic,
-       "link" => Link}
+       "link" => Link, 
+       "header" => Header}
 
     end
   end

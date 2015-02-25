@@ -1,4 +1,7 @@
 require 'uri'
+require 'sanitize-url'
+include SanitizeUrl
+
 module Doublesing
   module Builtins
     class Link
@@ -8,7 +11,7 @@ module Doublesing
       end
 
       def to_s
-        if @url =~ URI::regexp
+        if @url =~ URI::regexp && ! sanitize_url(@url).empty?
           "<a href=\"#{@url}\">#{@body}</a>"
         else
           @body

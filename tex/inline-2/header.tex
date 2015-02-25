@@ -1,0 +1,22 @@
+\subsection{Header}
+
+The \begin{verbatim}header\end{verbatim} tag creates a new html heading.
+
+It accepts two arguments:
+\begin{enumerate}
+\item the header depth
+\item the header body
+\end{enumerate}
+
+If the header depth is not a valid integer, it will default to 1.
+
+Thus, this:
+
+\begin{verbatim}
+\header{1}{this is a header}
+\end{verbatim}
+
+becomes:
+\begin{verbatim}
+<h1>this is a header</h1>
+\end{verbatim}

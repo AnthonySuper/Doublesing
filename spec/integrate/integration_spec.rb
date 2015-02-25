@@ -8,12 +8,13 @@ RSpec.describe "integrated tests" do
     Doublesing.setup!
     before = Dir[File.dirname(__FILE__) + "/before/*.2sing"].sort
     after = Dir[File.dirname(__FILE__) + "/after/*.html"].sort
-    before.map!{|path| File.open(path).read}
-    after.map!{|path| File.open(path).read}
+    before_content = before.map{|path| File.open(path).read}
+    after_content = after.map{|path| File.open(path).read}
     ##
     # Create [before, after] pairs
-    before.zip(after).each do |t|
-      expect(Doublesing.parse(t.first)).to eq(t.last)
+    before_content.zip(after_content).each_with_index do |t, i|
+      expect(Doublesing.parse(t.first))
+        .to eq(t.last), "#{before[i]} did not become #{after[i]}!"
     end
   end
 end

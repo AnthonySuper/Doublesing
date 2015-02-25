@@ -38,7 +38,8 @@ Then, to parse something, simply:
   Doublesing.parse("\\tag{this is a tag}")
 ```
 
-Run `rake specification` for the full list of built-in commands.
+Run `rake specification` to generate a .pdf with the full spec.
+Note: You gotta have PDFLatex installed for that to work.
 ## Contributing
 
 1. Fork it ( https://github.com/AnthonySuper/Doublesing/fork )

@@ -2,11 +2,13 @@ require "doublesing/version"
 require "doublesing/parser"
 require "doublesing/transformer"
 require "doublesing/builtins"
+require "sanitize"
+
 require "pp"
 module Doublesing
   def self.parse(str)
-    tree = Parser.new.parse(str)
-    pp tree
+    sanitized = Sanitize.fragment(str)
+    tree = Parser.new.parse(sanitized)
     res = Transformer.new.apply(tree)
     res
   end

@@ -10,7 +10,7 @@ module Doublesing
     sanitized = Sanitize.fragment(str)
     tree = Parser.new.parse(sanitized)
     res = Transformer.new.apply(tree)
-    res
+    res.join("")
   end
   ##
   # Assign a handler for a custom block class.

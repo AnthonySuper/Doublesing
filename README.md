@@ -1,4 +1,5 @@
 ![Doublesing Logo](https://cdn.rawgit.com/AnthonySuper/Doublesing/master/assets/logo-opt.svg)
+
 Doublesing is a wiki markup language based on TeX. 
 It's very simple and extremely flexible. 
 You can register your own tags (including over-riding builtin ones) to suit your needs, effectively allowing a custom dialect to be built with just ruby objects.

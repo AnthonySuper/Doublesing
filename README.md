@@ -1,8 +1,7 @@
 ![Doublesing Logo](https://cdn.rawgit.com/AnthonySuper/Doublesing/master/assets/logo-opt.svg)
 
 [![Build Status](https://travis-ci.org/AnthonySuper/Doublesing.svg)](https://travis-ci.org/AnthonySuper/Doublesing)
-
-
+[![Test Coverage](https://codeclimate.com/github/AnthonySuper/Doublesing/badges/coverage.svg)](https://codeclimate.com/github/AnthonySuper/Doublesing)
 [![Code Climate](https://codeclimate.com/github/AnthonySuper/Doublesing/badges/gpa.svg)](https://codeclimate.com/github/AnthonySuper/Doublesing)
 
 Doublesing is a wiki markup language based on TeX. 

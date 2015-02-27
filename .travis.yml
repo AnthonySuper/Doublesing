@@ -3,4 +3,8 @@ rvm:
   - 2.0.0
   - 2.1.1
   - 2.2.0
-  - jruby-head
+
+addons:
+  code_climate:
+    repo_token: 
+      secure: "hqU+bvvtga7nqyvxgTV1G0T8IwGeDa4AnM2FwhIXMRbmNrasrG459NkEUZFraKnsAtAb46MCRZTKzAqi8EgdsjwIyH1uY8f3Dmujja7S6v7oc5sDzku7zDLfmSRkTlCiMP3j1JZiHJ84rVPvuTOXL8PXSb1++cB3q6zFYhPq4sM="

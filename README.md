@@ -27,23 +27,75 @@ Or install it yourself as:
 
 ## Usage
 
-First, you must always call `Doublesing.setup!`. 
-This registers pre-built handlers.
+Doublesing is a TeX-like language designed to be used for online markup.
+It takes the relatively simple form of:
+```
+\BLOCK_ID{ARGUMENT}{ARGUMENT}{ARGUMENT}
+```
+Here, maybe a use case will help:
 
-Then, register your own handlers, like so:
-```ruby
-  # will now delegate \tag{arg} to the class Tag
-  # it will call Tag.new with the array of arguments pased to the block,
-  # then .to_s to get the resulting HTML
-  Doublesing.register("tag", Tag)
+```
+\bold{This text becomes bold!}
+```
+Becomes:
+```
+<b>This text becomes bold!</b>
+```
+You can have blocks that take multiple arguments:
+```
+\header{1}{This is a header}
 ```
 
-Then, to parse something, simply:
-```ruby
-  Doublesing.parse("\\tag{this is a tag}")
+```
+<h1>This is a header</h1>
 ```
 
-Run `rake specification` to generate a .pdf with the full spec.
+Parsing this is easy:
+```
+Doublesing.setup! # Must call once, probably in an initializer
+Doublesing.parse(str) #=> Processed HTML
+```
+
+Where it gets interesting is the fact that you can register your own block types.
+A common use case of this might be to add site-specific functionality.
+Let's say you're making a website about pictures of famous dogs.
+You probably want your user to be able to reference dogs pretty quickly.
+Well, with Doublesing, you can do something like:
+
+```ruby
+class DogFinder
+  def initialize(args)
+    @dog_name = args.first
+    @body = args[1]
+  end
+
+  def find_dog
+    dog = Dog.where(name: @dog_name).pluck(:id).first
+    "/dogs/#{dog.id}"
+  end
+
+  def to_s
+    "<a href=\"#{find_dog}\">#{@body.to_s}</a>"
+  end
+end
+```
+Then, register it:
+
+```ruby
+Doublesing.register("dog", DogFinder)
+```
+
+Now, assuming you're using Doublesing to parse comments, a user can say:
+```
+\dog{Rowlf}{My favorite musical dog!}
+```
+
+To easily get a link to the page on the piano player of the Muppets.
+Pretty neat, huh?
+
+Run `rake specification` to generate a .pdf with the full specification of built-in blocks.
+
+There aren't that many right now, but you're free to submit a pull request with one!
 Note: You gotta have PDFLatex installed for that to work.
 ## Contributing
 

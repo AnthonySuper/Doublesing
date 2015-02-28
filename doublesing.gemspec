@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Anthony Super"]
   spec.email         = ["anthony@noided.media"]
   spec.summary       = %q{An extensible markup language}
-  spec.homepage      = "www.github.com/AnthonySuper/Doublesing"
+  spec.homepage      = "http://www.github.com/AnthonySuper/Doublesing"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }

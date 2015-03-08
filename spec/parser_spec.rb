@@ -1,4 +1,5 @@
 require 'parslet/rig/rspec'
+Doublesing.setup!
 RSpec.describe Doublesing::Parser do
   let(:p){Doublesing::Parser.new}
   context "argument_begin" do

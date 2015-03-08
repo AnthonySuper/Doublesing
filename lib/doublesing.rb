@@ -16,7 +16,7 @@ module Doublesing
   # Assign a handler for a custom block class.
   # +name+: Name the block should respond to
   # +klass+: class the block should be generated from
-  # Note: 
+  # Note:
   def self.assign(name, klass)
     @@handlers[name] = klass
   end
@@ -28,8 +28,16 @@ module Doublesing
       ""
     end
   end
-  def self.setup!
+  def self.setup! configs = {}
     @@handlers = {}
     @@handlers.merge! Builtins.handlers
+    @@parse_configs = {
+        argument_begin: "{",
+        argument_end: "}"
+      }.merge! (configs[:parse] || {})
+  end
+
+  def self.parse_configs
+    @@parse_configs || {}
   end
 end

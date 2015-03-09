@@ -4,8 +4,8 @@
 [![Test Coverage](https://codeclimate.com/github/AnthonySuper/Doublesing/badges/coverage.svg)](https://codeclimate.com/github/AnthonySuper/Doublesing)
 [![Code Climate](https://codeclimate.com/github/AnthonySuper/Doublesing/badges/gpa.svg)](https://codeclimate.com/github/AnthonySuper/Doublesing)
 
-Doublesing is a wiki markup language based on TeX. 
-It's very simple and extremely flexible. 
+Doublesing is a wiki markup language based on TeX.
+It's very simple and extremely flexible.
 You can register your own tags (including over-riding builtin ones) to suit your needs, effectively allowing a custom dialect to be built with just ruby objects.
 
 
@@ -30,12 +30,12 @@ Or install it yourself as:
 Doublesing is a TeX-like language designed to be used for online markup.
 It takes the relatively simple form of:
 ```
-\BLOCK_ID{ARGUMENT}{ARGUMENT}{ARGUMENT}
+\BLOCK_ID[ARGUMENT][ARGUMENT][ARGUMENT]
 ```
 Here, maybe a use case will help:
 
 ```
-\bold{This text becomes bold!}
+\bold[This text becomes bold!]
 ```
 Becomes:
 ```
@@ -43,7 +43,7 @@ Becomes:
 ```
 You can have blocks that take multiple arguments:
 ```
-\header{1}{This is a header}
+\header[1][This is a header]
 ```
 
 ```
@@ -87,7 +87,7 @@ Doublesing.register("dog", DogFinder)
 
 Now, assuming you're using Doublesing to parse comments, a user can say:
 ```
-\dog{Rowlf}{My favorite musical dog!}
+\dog[Rowlf][My favorite musical dog!]
 ```
 
 To easily get a link to the page on the piano player of the Muppets.

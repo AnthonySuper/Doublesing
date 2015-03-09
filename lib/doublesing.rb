@@ -4,8 +4,12 @@ require "doublesing/transformer"
 require "doublesing/builtins"
 require "sanitize"
 
-require "pp"
+##
+# The Doublesing module is the main interface for interacting with Doublesing
 module Doublesing
+  ##
+  # This method takes a string of source in the Doublesing language, and returns the resulting HTML
+  # It will sanitize any HTML fragments out of the source first, for safety's sake.
   def self.parse(str)
     sanitized = Sanitize.fragment(str)
     tree = Parser.new.parse(sanitized)
@@ -20,7 +24,17 @@ module Doublesing
   def self.assign(name, klass)
     @@handlers[name] = klass
   end
+  ##
+  # Load default block handlers
+  # YOU MUST CALL THIS BEFORE ANYTHING ELSE
+  def self.setup!
+    @@handlers = {}
+    @@handlers.merge! Builtins.handlers
+  end
 
+  protected
+  ##
+  # Take the id of a block and its arguments and process it, returning html.
   def self.process(id, args)
     if handler = @@handlers[id.to_s]
       handler.new(args).to_s
@@ -28,8 +42,5 @@ module Doublesing
       ""
     end
   end
-  def self.setup!
-    @@handlers = {}
-    @@handlers.merge! Builtins.handlers
-  end
+
 end

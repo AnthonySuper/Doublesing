@@ -1,8 +1,8 @@
 require 'parslet'
 module Doublesing
   class Parser < Parslet::Parser
-    rule(:argument_begin){ str("{") }
-    rule(:argument_end){ str("\\}").absent? >> str("}")}
+    rule(:argument_begin){ str("[") }
+    rule(:argument_end){ str("\\]").absent? >> str("]")}
     rule(:block_begin){ str("\\\\").absent? >> str("\\")}
     rule(:block_id){ match["\\w"].repeat(1)}
     rule(:block_header){ block_begin >> block_id.as(:id)}

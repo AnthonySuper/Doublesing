@@ -2,16 +2,16 @@ require 'parslet/rig/rspec'
 RSpec.describe Doublesing::Parser do
   let(:p){Doublesing::Parser.new}
   context "argument_begin" do
-    it "matches {" do
-      expect(p.argument_begin).to parse("{")
+    it "matches [" do
+      expect(p.argument_begin).to parse("[")
     end
   end
   context "argument_end" do
-    it "matches }" do
-      expect(p.argument_end).to parse("}")
+    it "matches ]" do
+      expect(p.argument_end).to parse("]")
     end
-    it "doesn't match \\}" do
-      expect(p.argument_end).to_not parse("\\}")
+    it "doesn't match \\]" do
+      expect(p.argument_end).to_not parse("\\]")
     end
   end
   context "block_begin" do
@@ -46,15 +46,15 @@ RSpec.describe Doublesing::Parser do
       expect(p.text).to parse("other text")
     end
     it "doesn't match an argument_end" do
-      expect(p.text).to_not parse("end}")
+      expect(p.text).to_not parse("end]")
     end
   end
   context "block" do
     it "matches a properly formed block" do
-      expect(p.block).to parse("\\test{arg}")
+      expect(p.block).to parse("\\test[arg]")
     end
     it "matches blocks of any arity" do
-      expect(p.block).to parse("\\test{arg1}{arg2}")
+      expect(p.block).to parse("\\test[arg1][arg2]")
     end
   end
 end
